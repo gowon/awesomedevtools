@@ -1,0 +1,14 @@
+﻿<MudItem>
+    <MudTextField @bind-Value="Search" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" />
+</MudItem>
+<MudDivider Class="mb-4" />
+<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+    <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
+    <MudNavLink Href="/fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
+    <MudNavLink Href="/Base64" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.SyncAlt">Base64 Encode</MudNavLink>
+</MudNavMenu>
+
+@code {
+    public string Search { get; set; }
+}

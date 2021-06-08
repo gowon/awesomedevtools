@@ -1,0 +1,33 @@
+@using System.Reflection
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@inject LazyAssemblyLoader _assemblyLoader
+
+<Router AppAssembly="@typeof(Program).Assembly"
+        AdditionalAssemblies="@_lazyLoadedAssemblies"
+        OnNavigateAsync="@OnNavigateAsync"
+        PreferExactMatches="@true">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+
+
+@code{
+    private List<Assembly> _lazyLoadedAssemblies = new List<Assembly>();
+
+    private async Task OnNavigateAsync(NavigationContext context)
+    {
+        // Url of the page that needs the lazy loaded assembly
+        if (context.Path == "Base64" || context.Path == "Component1")
+        {
+            var assemblies = await _assemblyLoader.LoadAssembliesAsync(new List<string> { "AwesomeDevTools.Modules.Base64.dll" });
+            _lazyLoadedAssemblies.AddRange(assemblies);
+        }
+    }
+}
